@@ -34,8 +34,26 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+function customValidation() {
+  this.invalidInputs = [];
+}
+let hasNumber = /\d/;
+customValidation.prototype = {
+  addInvalid: function (message) {
+    this.invalidInputs.push(message);
+  },
+  getInvalid: function () {
+    return this.invalidInputs.join(". \n");
+  },
+  checkValid: function (input) {
+    if (!hasNumber.test(input)) {
+      this.addInvalid("This input should not contain a number");
+    }
+  },
+};
+
 const NewStudentView = (props) => {
-  const { handleChange, handleSubmit } = props;
+  const { handleChange, handleSubmit, handleChangeNames } = props;
   const classes = useStyles();
 
   // Render a New Student view with an input form
@@ -67,7 +85,7 @@ const NewStudentView = (props) => {
             <input
               type="text"
               name="firstname"
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChangeNames(e)}
             />
             <br />
             <br />
@@ -78,7 +96,7 @@ const NewStudentView = (props) => {
             <input
               type="text"
               name="lastname"
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChangeNames(e)}
             />
             <br />
             <br />

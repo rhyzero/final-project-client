@@ -12,6 +12,11 @@ import { Redirect } from "react-router-dom";
 
 import NewStudentView from "../views/NewStudentView";
 import { addStudentThunk } from "../../store/thunks";
+import { useIsFocusVisible } from "@material-ui/core";
+
+const hasNumber = /\d/;
+const defaultImg =
+  "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png";
 
 class NewStudentContainer extends Component {
   // Initialize state
@@ -22,7 +27,7 @@ class NewStudentContainer extends Component {
       lastname: "",
       email: "",
       imageUrl: "",
-      gpa: "",
+      gpa: null,
       campusId: null,
       redirect: false,
       redirectId: null,
@@ -36,16 +41,33 @@ class NewStudentContainer extends Component {
     });
   };
 
+  handleChangeNames = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    if (hasNumber.test(event.target.value) === true) {
+      alert("Names must not contain numbers");
+      event.target.value = event.target.value.slice(0, -1);
+    }
+  };
+
   // Take action after user click the submit button
   handleSubmit = async (event) => {
     event.preventDefault(); // Prevent browser reload/refresh after submit.
+
+    if (!this.state.email.includes("@")) {
+      alert("Email addresses must contain an @");
+      return;
+    }
 
     let student = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       campusId: this.state.campusId,
       email: this.state.email,
-      imageURL: this.state.imageUrl,
+      imageURL: `${
+        this.state.imageUrl === "" ? defaultImg : this.state.imageUrl
+      }`,
       gpa: this.state.gpa,
     };
 
@@ -84,6 +106,7 @@ class NewStudentContainer extends Component {
         <NewStudentView
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          handleChangeNames={this.handleChangeNames}
         />
       </div>
     );

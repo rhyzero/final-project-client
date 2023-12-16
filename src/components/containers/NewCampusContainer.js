@@ -4,18 +4,16 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import NewCampusView from "../views/NewCampusView";
-import { addStudentThunk } from "../../store/thunks";
+import { addCampusThunk } from "../../store/thunks";
 
 class NewCampusContainer extends Component {
   // Initialize state
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-      campusId: null,
-      redirect: false,
-      redirectId: null,
+      name: "",
+      address: "",
+      description: "",
     };
   }
   // Capture input data when it is entered
@@ -29,22 +27,22 @@ class NewCampusContainer extends Component {
   handleSubmit = async (event) => {
     event.preventDefault(); // Prevent browser reload/refresh after submit.
 
-    let student = {
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      campusId: this.state.campusId,
+    let campus = {
+      name: this.state.name,
+      address: this.state.address,
+      description: this.state.description,
     };
 
+    let newCampus = await this.props.addCampus(campus);
     // Add new student in back-end database
-    let newStudent = await this.props.addStudent(student);
 
     // Update state, and trigger redirect to show the new student
     this.setState({
-      firstname: "",
-      lastname: "",
-      campusId: null,
+      name: "",
+      address: "",
+      description: "",
       redirect: true,
-      redirectId: newStudent.id,
+      redirectId: newCampus.id,
     });
   };
 
@@ -57,7 +55,7 @@ class NewCampusContainer extends Component {
   render() {
     // Redirect to new student's page after submit
     if (this.state.redirect) {
-      return <Redirect to={`/student/${this.state.redirectId}`} />;
+      return <Redirect to={`/campus/${this.state.redirectId}`} />;
     }
 
     // Display the input form via the corresponding View component
@@ -75,7 +73,7 @@ class NewCampusContainer extends Component {
 
 const mapDispatch = (dispatch) => {
   return {
-    addStudent: (student) => dispatch(addStudentThunk(student)),
+    addCampus: (campus) => dispatch(addCampusThunk(campus)),
   };
 };
 

@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
+// Create styling for the input form
 const useStyles = makeStyles(() => ({
   formContainer: {
     width: "500px",
@@ -27,12 +28,32 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const EditCampusView = (props) => {
-  const { handleSubmit, handleChange, campus } = props;
+function customValidation() {
+  this.invalidInputs = [];
+}
+let hasNumber = /\d/;
+customValidation.prototype = {
+  addInvalid: function (message) {
+    this.invalidInputs.push(message);
+  },
+  getInvalid: function () {
+    return this.invalidInputs.join(". \n");
+  },
+  checkValid: function (input) {
+    if (!hasNumber.test(input)) {
+      this.addInvalid("This input should not contain a number");
+    }
+  },
+};
+
+const EditStudentView = (props) => {
+  const { handleChange, handleSubmit, handleChangeNames, student } = props;
   const classes = useStyles();
+
+  // Render a New Student view with an input form
   return (
     <div>
-      <h1>Edit Campus Information</h1>
+      <h1>Edit Student</h1>
 
       <div className={classes.root}>
         <div className={classes.formContainer}>
@@ -45,7 +66,7 @@ const EditCampusView = (props) => {
                 color: "#11153e",
               }}
             >
-              Edit Campus
+              {student.firstname} {student.lastname}
             </Typography>
           </div>
           <form
@@ -53,15 +74,38 @@ const EditCampusView = (props) => {
             onSubmit={(e) => handleSubmit(e)}
           >
             <label style={{ color: "#11153e", fontWeight: "bold" }}>
-              Name:{" "}
+              First Name:{" "}
             </label>
             <input
               type="text"
-              name="name"
-              defaultValue={campus.name}
-              onChange={(e) => handleChange(e)}
+              name="firstname"
+              defaultValue={student.firstname}
+              onChange={(e) => handleChangeNames(e)}
             />
+            <br />
+            <br />
 
+            <label style={{ color: "#11153e", fontWeight: "bold" }}>
+              Last Name:{" "}
+            </label>
+            <input
+              type="text"
+              name="lastname"
+              defaultValue={student.lastname}
+              onChange={(e) => handleChangeNames(e)}
+            />
+            <br />
+            <br />
+
+            <label style={{ color: "#11153e", fontWeight: "bold" }}>
+              Email:{" "}
+            </label>
+            <input
+              type="text"
+              name="email"
+              onChange={(e) => handleChange(e)}
+              defaultValue={student.email}
+            />
             <br />
             <br />
 
@@ -70,34 +114,33 @@ const EditCampusView = (props) => {
             </label>
             <input
               type="text"
-              name="campusId"
-              defaultValue={campus.imageURL}
-              placeholder="(Optional)"
+              name="imageUrl"
+              defaultValue={student.imageURL ? student.imageURL : "Optional"}
               onChange={(e) => handleChange(e)}
             />
             <br />
             <br />
 
             <label style={{ color: "#11153e", fontWeight: "bold" }}>
-              Address:{" "}
+              GPA:{" "}
             </label>
             <input
-              type="text"
-              name="campusId"
-              defaultValue={campus.address}
+              type="number"
+              step="0.1"
+              name="gpa"
+              defaultValue={student.gpa}
               onChange={(e) => handleChange(e)}
             />
             <br />
             <br />
 
             <label style={{ color: "#11153e", fontWeight: "bold" }}>
-              Description:{" "}
+              Campus Id:{" "}
             </label>
-            <textarea
-              type="text"
-              name="description"
-              defaultValue={campus.description}
-              placeholder="Enter Description Here"
+            <input
+              type="number"
+              name="campusId"
+              defaultValue={student.campusId}
               onChange={(e) => handleChange(e)}
             />
             <br />
@@ -115,4 +158,4 @@ const EditCampusView = (props) => {
   );
 };
 
-export default EditCampusView;
+export default EditStudentView;

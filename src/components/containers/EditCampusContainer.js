@@ -5,7 +5,7 @@ import { fetchCampusThunk, editCampusThunk } from "../../store/thunks";
 
 import EditCampusView from "../views/EditCampusView";
 
-class CampusContainer extends Component {
+class EditCampusContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +18,9 @@ class CampusContainer extends Component {
   componentDidMount() {
     // Get campus ID from URL (API link)
     this.props.fetchCampus(this.props.match.params.id);
+    this.state.name = this.props.campus.name;
+    this.state.address = this.props.campus.address;
+    this.state.description = this.props.campus.description;
     console.log(this.props);
     console.log(this.state);
   }
@@ -31,9 +34,19 @@ class CampusContainer extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     let campus = {
-      name: this.state.name,
-      address: this.state.address,
-      description: this.state.description,
+      name: `${
+        this.state.name ? this.state.name : this.props.match.params.name
+      }`,
+      address: `${
+        this.state.address
+          ? this.state.address
+          : this.props.match.params.address
+      }`,
+      description: `${
+        this.state.description
+          ? this.state.description
+          : this.props.match.params.description
+      }`,
       id: this.props.match.params.id,
     };
 
@@ -70,4 +83,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(CampusContainer);
+export default connect(mapState, mapDispatch)(EditCampusContainer);

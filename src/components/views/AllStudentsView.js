@@ -34,6 +34,7 @@ const AllStudentsView = (props) => {
             </Link>
             <img
               src={student.imageURL}
+              alt="User Profile"
               style={{
                 width: 175,
                 height: 175,

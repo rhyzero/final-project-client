@@ -32,6 +32,10 @@ class NewCampusContainer extends Component {
       address: this.state.address,
       description: this.state.description,
     };
+    if (this.state.name === "" || this.state.address === "") {
+      alert("You have not filled in all required inputs.");
+      return;
+    }
 
     let newCampus = await this.props.addCampus(campus);
     // Add new student in back-end database

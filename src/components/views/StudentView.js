@@ -12,6 +12,16 @@ const StudentView = (props) => {
   return (
     <div>
       <h1>{student.firstname + " " + student.lastname}</h1>
+      <img
+        src={student.imageURL}
+        alt="User Profile"
+        style={{
+          width: 175,
+          height: 175,
+          objectFit: "cover",
+          borderRadius: 100,
+        }}
+      ></img>
       <h3>
         {student.campus ? (
           <Link to={`/campus/${student.campus.id}`}>

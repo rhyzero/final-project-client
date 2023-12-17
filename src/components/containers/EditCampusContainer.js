@@ -21,8 +21,6 @@ class EditCampusContainer extends Component {
     this.state.name = this.props.campus.name;
     this.state.address = this.props.campus.address;
     this.state.description = this.props.campus.description;
-    console.log(this.props);
-    console.log(this.state);
   }
 
   handleChange = (event) => {
@@ -49,10 +47,11 @@ class EditCampusContainer extends Component {
       }`,
       id: this.props.match.params.id,
     };
-
     await this.props.editCampus(campus);
+
     // Add new student in back-end database
   };
+
   // Render a Campus view by passing campus data as props to the corresponding View component
   render() {
     return (

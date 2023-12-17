@@ -46,12 +46,12 @@ class EditStudentContainer extends Component {
   handleSubmit = async (event) => {
     event.preventDefault(); // Prevent browser reload/refresh after submit.
     if (
-      this.state.firstname == null ||
-      this.state.lastname == null ||
-      this.state.campusId == null ||
-      this.state.gpa == null
+      this.state.firstname === "" ||
+      this.state.lastname === "" ||
+      this.state.email === "" ||
+      this.state.email === undefined
     ) {
-      alert("You have not filled in all inputs.");
+      alert("You have not filled in all required inputs.");
       return;
     }
     if (!this.state.email.includes("@")) {

@@ -102,7 +102,6 @@ const EditCampusView = (props) => {
             />
             <br />
             <br />
-
             <Button variant="contained" color="primary" type="submit">
               Submit
             </Button>

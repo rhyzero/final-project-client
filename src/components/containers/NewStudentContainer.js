@@ -12,7 +12,6 @@ import { Redirect } from "react-router-dom";
 
 import NewStudentView from "../views/NewStudentView";
 import { addStudentThunk } from "../../store/thunks";
-import { useIsFocusVisible } from "@material-ui/core";
 
 const hasNumber = /\d/;
 const defaultImg =
@@ -55,6 +54,14 @@ class NewStudentContainer extends Component {
   handleSubmit = async (event) => {
     event.preventDefault(); // Prevent browser reload/refresh after submit.
 
+    if (
+      this.state.firstname === "" ||
+      this.state.lastname === "" ||
+      this.state.email === ""
+    ) {
+      alert("You have not filled in all inputs.");
+      return;
+    }
     if (!this.state.email.includes("@")) {
       alert("Email addresses must contain an @");
       return;

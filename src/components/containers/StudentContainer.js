@@ -10,7 +10,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { deleteStudentThunk, fetchStudentThunk } from "../../store/thunks";
 import { StudentView } from "../views";
-import { deleteStudent } from "../../store/actions/actionCreators";
 
 class StudentContainer extends Component {
   // Get student data from back-end database

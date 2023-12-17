@@ -13,6 +13,13 @@ export const fetchAllCampuses = (campuses) => {
   };
 };
 
+export const fetchAllCampusStudents = (campus) => {
+  return {
+    type: at.FETCH_ALL_CAMPUS_STUDENTS,
+    payload: campus.students,
+  };
+};
+
 //Single Campus
 export const fetchCampus = (campus) => {
   return {

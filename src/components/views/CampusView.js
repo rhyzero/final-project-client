@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const { campus, deleteCampus } = props;
+  const { campus, deleteCampus, deleteStudent } = props;
   const history = useHistory();
 
   const routeChange = () => {
@@ -26,6 +26,7 @@ const CampusView = (props) => {
       <Link to={`/campus/${campus.id}/edit`}>
         <button>Edit Campus</button>
       </Link>
+
       <button
         onClick={() => {
           deleteCampus(campus.id);
@@ -38,9 +39,18 @@ const CampusView = (props) => {
         let name = student.firstname + " " + student.lastname;
         return (
           <div key={student.id}>
+            <hr></hr>
+            <h2>Students</h2>
             <Link to={`/student/${student.id}`}>
               <h2>{name}</h2>
             </Link>
+            <button
+              onClick={() => {
+                deleteStudent(campus.id, student.id);
+              }}
+            >
+              Remove Student
+            </button>
           </div>
         );
       })}

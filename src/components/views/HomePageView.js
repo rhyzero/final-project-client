@@ -51,6 +51,7 @@ const HomePageView = () => {
           </Link>
           <img
             src="https://images.unsplash.com/photo-1622604647545-0cada2f34470?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y29sbGVnZSUyMGNhbXB1c3xlbnwwfHwwfHx8MA%3D%3D"
+            alt="college campus"
             style={{ width: 480 }}
           ></img>
         </div>
@@ -88,6 +89,7 @@ const HomePageView = () => {
           </Link>
           <img
             src="https://sterlinggroupunited.com/wp-content/uploads/2022/03/cheerful-college-students-walking-out-campus-together-posing-outdoors-camera-having-break-classes-free-space-175174081.jpg"
+            alt="college students"
             style={{ width: 480 }}
           ></img>
         </div>

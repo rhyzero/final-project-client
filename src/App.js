@@ -23,7 +23,7 @@ import EditStudentContainer from "./components/containers/EditStudentContainer";
 const App = () => {
   return (
     <div className="App">
-      <Switch basename="/final-project-client">
+      <Switch>
         <Route exact path="/" component={HomePageContainer} />
         <Route exact path="/campuses" component={AllCampusesContainer} />
         <Route exact path="/campus/:id" component={CampusContainer} />
